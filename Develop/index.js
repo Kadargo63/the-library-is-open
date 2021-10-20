@@ -1,6 +1,6 @@
 // TODO: Include packages needed for this application
-const fs require("fs");
-const inquirer = require('inquirer');
+const fs = require("fs");
+const inquirer = require("inquirer");
 const generateMarkdown = require("./utils/generateMarkdown");
 // License function and if/else section
 function getLicense(value) {
@@ -42,7 +42,7 @@ const questions = [
     {
         type: "input",
         name: "description",
-        message: "Please enter a description of your project."
+        message: "Please enter a description of your project.",
         validate: validateInput,
     },
     //Table of Contents, handling this in the markdown.js
@@ -58,7 +58,7 @@ const questions = [
     {
         type: "input",
         name: "usage",
-        message: "Please describe how we can use this program/project."
+        message: "Please describe how we can use this program/project.",
         validate: validateInput,
     },
     //Question for License
@@ -82,8 +82,8 @@ const questions = [
         type: "input",
         name: "contributing",
         message: "How can users contribute to your project.",
-        validate: validateInput
-    }
+        validate: validateInput,
+    },
     //Question for Tests
     {
         type: "input",
@@ -115,7 +115,7 @@ const questions = [
 
 // TODO: Create a function to write README file
 function writeToFile(fileName, data) {
-    fs.writeToFile(fileName, generateMarkdown(data), function (err) {
+    fs.writeFile(fileName, generateMarkdown(data), function (err) {
         if (err) {
             return console.log(err);
         }
@@ -124,10 +124,10 @@ function writeToFile(fileName, data) {
 
 // TODO: Create a function to initialize app
 function init() {
-    inquirer.prompt(questions).then((date) => {
+    inquirer.prompt(questions).then((data) => {
         console.log(JSON.stringify(data, null, ""));
         data.getLicense = getLicense(data.license);
-        writeToFile("./example/README.md", data);
+        writeToFile("./example/readme.md", data);
     });
 }
 
